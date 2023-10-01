@@ -18,10 +18,7 @@ namespace HotelRoomWPF.Models
         }
 
 
-        public IEnumerable<Reservation> GetReservationForUser(string userName)
-        {
-            return _roomsToReservations.Where(r => r.UserName == userName);
-        }
+        public IEnumerable<Reservation> GetAllReservation() => _roomsToReservations;
 
         public void AddReservation(Reservation reservation)
         {

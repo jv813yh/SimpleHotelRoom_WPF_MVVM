@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\App.xaml
-11407045341
+3-561344251
 
-81971312459
+10-929712688
 194183970531
-MainWindow.xaml;
+MainWindow.xaml;Views\MakeReservetionView.xaml;Views\ReservetionListingView.xaml;
 
 False
 

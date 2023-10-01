@@ -28,7 +28,7 @@ namespace HotelRoomWPF
                  new DateTime(2000, 1, 5)));
 
                 hotel.MakeReservationBook(new Reservation(
-                    new RoomID(1, 3),
+                    new RoomID(1, 4),
                     "Peter Jakab",
                     new DateTime(2000, 1, 1),
                     new DateTime(2000, 1, 4)));
@@ -39,7 +39,7 @@ namespace HotelRoomWPF
             }
 
 
-            IEnumerable<Reservation> reservations = hotel.GetReservationBooks("Peter Jakab");
+            IEnumerable<Reservation> reservations = hotel.GettAllReservation();
 
             base.OnStartup(e);
         }

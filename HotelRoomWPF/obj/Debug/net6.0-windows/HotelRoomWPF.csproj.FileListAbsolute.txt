@@ -18,3 +18,9 @@ C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows
 C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\HotelRoomWPF.pdb
 C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\HotelRoomWPF.genruntimeconfig.cache
 C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\ref\HotelRoomWPF.dll
+C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\Views\MakeReservetionView.g.cs
+C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\Views\ReservetionListingView.g.cs
+C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\Views\MakeReservetionView.baml
+C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\Views\ReservetionListingView.baml
+C:\Users\ke01140\source\repos\HotelRoomWPF\HotelRoomWPF\obj\Debug\net6.0-windows\App.baml
