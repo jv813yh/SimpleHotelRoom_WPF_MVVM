@@ -15,7 +15,7 @@
     <Grid
         Margin="20 10"
         MaxWidth="550">
-        
-        <views:ReservetionListingView/>
+
+        <views:MakeReservetionView DataContext="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

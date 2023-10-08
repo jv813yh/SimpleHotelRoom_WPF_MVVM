@@ -17,29 +17,11 @@ namespace HotelRoomWPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Hotel hotel = new Hotel("Astoria hotel");
-
-            try
+            MainWindow = new MainWindow()
             {
-                hotel.MakeReservationBook(new Reservation(
-                 new RoomID(1, 3),
-                 "Peter Jakab",
-                 new DateTime(2000, 1, 1),
-                 new DateTime(2000, 1, 5)));
-
-                hotel.MakeReservationBook(new Reservation(
-                    new RoomID(1, 4),
-                    "Peter Jakab",
-                    new DateTime(2000, 1, 1),
-                    new DateTime(2000, 1, 4)));
-            }
-            catch (ReservationConflictException ex)
-            {
-                MessageBox.Show(ex.Message, "Mas prekryzenu rezervaciu izby");
-            }
-
-
-            IEnumerable<Reservation> reservations = hotel.GettAllReservation();
+                DataContext = new ViewModels.MainViewModel() 
+            };
+            MainWindow.Show();
 
             base.OnStartup(e);
         }

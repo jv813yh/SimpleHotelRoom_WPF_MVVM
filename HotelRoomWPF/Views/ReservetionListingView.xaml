@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelRoomWPF.Views"
+             xmlns:vm="clr-namespace:HotelRoomWPF.ViewModels"
              mc:Ignorable="d" 
              
              d:DesignHeight="450" d:DesignWidth="800">
@@ -23,16 +24,16 @@
 
             <Button 
                 Content="Make Reservation"
-                Margin="120 0 0 0"/>
+                Margin="120 0 0 0"
+                Command="{Binding MakeReservationCommand}"/>
         </StackPanel>
 
         <ListView 
             Grid.Row="1"
             Margin="0 25 0 0"
             BorderBrush="Black"
-            BorderThickness="5">
-            <ListViewItem/>
-            <ListViewItem/>
+            BorderThickness="5"
+            ItemsSource="{Binding GetAllReservations}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -50,7 +51,7 @@
                     <GridViewColumn Header="Room ID">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="2"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding RoomID.FloorNumber}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -58,7 +59,7 @@
                     <GridViewColumn Header="User Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Juraj Cmorik"
+                                <TextBlock Text="{Binding UserName}"
                                            Padding="0 0 20 0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -67,7 +68,7 @@
                     <GridViewColumn Header="Start Date">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="08/20"
+                                <TextBlock Text="{Binding StartTime}"
                                            Padding="0 0 20 0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -76,7 +77,7 @@
                     <GridViewColumn Header="End Date">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="12/20"
+                                <TextBlock Text="{Binding EndTime}"
                                            Padding="0 0 20 0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
