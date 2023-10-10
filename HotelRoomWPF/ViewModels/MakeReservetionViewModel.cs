@@ -5,13 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HotelRoomWPF.Commands;
+
 
 namespace HotelRoomWPF.ViewModels
 {
     public class MakeReservetionViewModel: BaseViewModel
     {
-        public MakeReservetionViewModel()
+        public MakeReservetionViewModel(Hotel hotel)
         { 
+            SubmitCommand = new MakeReservationCommand(this, hotel);
+            CancelCommand = new CancelMakeReservationCommand();
 
         }
 
@@ -19,8 +23,8 @@ namespace HotelRoomWPF.ViewModels
         public ICommand CancelCommand { get; }
 
 
-        private int _floorNumber;
-        public int FloorNumber 
+        private string _floorNumber;
+        public string FloorNumber 
         {
             get
             {
@@ -35,8 +39,8 @@ namespace HotelRoomWPF.ViewModels
                 }
             }
         }
-        private int _roomNumber;
-        public int RoomNumber
+        private string _roomNumber;
+        public string RoomNumber
         {
             get
             {

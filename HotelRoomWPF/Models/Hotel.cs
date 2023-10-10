@@ -21,7 +21,7 @@ namespace HotelRoomWPF.Models
 
         public IEnumerable<Reservation> GettAllReservation() => _reservationBook.GetAllReservation();
 
-        public void MakeReservationBook(Reservation reservation)
+        public void MakeReservationHotel(Reservation reservation)
         {
             _reservationBook.AddReservation(reservation);
         }

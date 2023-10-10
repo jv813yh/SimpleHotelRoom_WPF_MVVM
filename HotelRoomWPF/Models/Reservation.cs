@@ -8,10 +8,10 @@ namespace HotelRoomWPF.Models
 {
     public class Reservation
     {
-        public RoomID RoomID { get; set; }
+        public RoomID RoomID { get; }
         public string UserName { get; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime StartTime { get; }
+        public DateTime EndTime { get; }
         public TimeSpan Length => EndTime.Subtract(StartTime);
 
         public Reservation(RoomID roomID, string userName, DateTime startTime, DateTime endTime)

@@ -8,10 +8,10 @@ namespace HotelRoomWPF.Models
 {
     public class RoomID
     {
-        public int FloorNumber { get; }
-        public int RoomNumber { get; }
+        public string FloorNumber { get; }
+        public string RoomNumber { get; }
 
-        public RoomID(int floorNumber, int roomNumber)
+        public RoomID(string floorNumber, string roomNumber)
         {
             FloorNumber = floorNumber;
             RoomNumber = roomNumber;

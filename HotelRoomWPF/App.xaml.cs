@@ -15,12 +15,19 @@ namespace HotelRoomWPF
     /// </summary>
     public partial class App : Application
     {
+        private Hotel _hotel;
+
+        public App()
+        {
+            _hotel = new Hotel("White Horse");
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new ViewModels.MainViewModel() 
+                DataContext = new ViewModels.MainViewModel(_hotel) 
             };
+
             MainWindow.Show();
 
             base.OnStartup(e);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 
 namespace HotelRoomWPF.Models
@@ -22,14 +23,25 @@ namespace HotelRoomWPF.Models
 
         public void AddReservation(Reservation reservation)
         {
-            foreach (Reservation item in _roomsToReservations)
+            try
             {
-                if(item.Conflicts(reservation))
+                foreach (Reservation item in _roomsToReservations)
                 {
-                    throw new ReservationConflictException(item, reservation);
+                    if (item.Conflicts(reservation))
+                    {
+                        throw new ReservationConflictException(item, reservation);
+                    }
                 }
+                _roomsToReservations.Add(reservation);
+
+                MessageBox.Show("Successfully reserved room", "Information",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            _roomsToReservations.Add(reservation);
+            catch (ReservationConflictException ex)
+            {
+                MessageBox.Show("This room is already taken", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

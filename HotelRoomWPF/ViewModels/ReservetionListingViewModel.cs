@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HotelRoomWPF.Commands;
 using HotelRoomWPF.Models;
 
 namespace HotelRoomWPF.ViewModels
@@ -21,9 +22,11 @@ namespace HotelRoomWPF.ViewModels
         {
             _reservations = new ObservableCollection<ReservationViewModel>();
 
-            _reservations.Add(new ReservationViewModel(new Reservation(new RoomID(1, 9), "Dominik Lacko", DateTime.Now, DateTime.Now)));  
-            _reservations.Add(new ReservationViewModel(new Reservation(new RoomID(2, 5), "Juraj Lacko", DateTime.Now, DateTime.Now)));  
-            _reservations.Add(new ReservationViewModel(new Reservation(new RoomID(1, 1), "Šimon Lacko", DateTime.Now, DateTime.Now)));  
+            MakeReservationCommand = new NavigateCommand();
+
+            _reservations.Add(new ReservationViewModel(new Reservation(new RoomID("1", "9"), "Dominik Lacko", DateTime.Now, DateTime.Now)));  
+            _reservations.Add(new ReservationViewModel(new Reservation(new RoomID("2", "5"), "Juraj Lacko", DateTime.Now, DateTime.Now)));  
+            _reservations.Add(new ReservationViewModel(new Reservation(new RoomID("1", "1"), "Šimon Lacko", DateTime.Now, DateTime.Now)));  
         }
 
     }
