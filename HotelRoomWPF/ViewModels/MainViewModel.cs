@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelRoomWPF.Models;
+using HotelRoomWPF.Stores;
+using HotelRoomWPF.ViewModels;
 
 namespace HotelRoomWPF.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel: BaseViewModel
     {
-        public BaseViewModel CurrentViewModel { get; }
+        private readonly NavigationStore _navigationStore;
+        public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(Hotel hotel)
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new ReservetionListingViewModel();
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

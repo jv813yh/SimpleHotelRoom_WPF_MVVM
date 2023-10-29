@@ -23,6 +23,7 @@ namespace HotelRoomWPF.Views
         public MakeReservetionView()
         {
             InitializeComponent();
+            ContentControl ct = new ContentControl();
         }
     }
 }

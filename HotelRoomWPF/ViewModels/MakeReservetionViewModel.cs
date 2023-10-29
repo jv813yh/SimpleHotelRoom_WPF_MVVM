@@ -12,12 +12,12 @@ namespace HotelRoomWPF.ViewModels
 {
     public class MakeReservetionViewModel: BaseViewModel
     {
-        public MakeReservetionViewModel(Hotel hotel)
+        public MakeReservetionViewModel(Hotel hotel, Stores.NavigationStore navigationStore, Func<ReservetionListingViewModel> createReservetionListingViewModel)
         { 
             SubmitCommand = new MakeReservationCommand(this, hotel);
-            CancelCommand = new CancelMakeReservationCommand();
+            CancelCommand = new NavigateCommand(navigationStore, createReservetionListingViewModel);
 
-        }
+        } 
 
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }

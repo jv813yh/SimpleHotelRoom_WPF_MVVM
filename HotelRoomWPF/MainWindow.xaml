@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelRoomWPF" 
         xmlns:views="clr-namespace:HotelRoomWPF.Views"
+        xmlns:vms="clr-namespace:HotelRoomWPF.ViewModels"
         mc:Ignorable="d"
         
         Title="Reservoom" 
@@ -16,6 +17,15 @@
         Margin="20 10"
         MaxWidth="550">
 
-        <views:ReservetionListingView DataContext="{Binding CurrentViewModel}"/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:MakeReservetionViewModel}">
+               <views:MakeReservetionView/> 
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ReservetionListingViewModel}">
+                <views:ReservetionListingView/> 
+            </DataTemplate>
+        </Grid.Resources>
+
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

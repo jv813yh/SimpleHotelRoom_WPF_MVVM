@@ -1,5 +1,7 @@
 ﻿using HotelRoomWPF.Exceptions;
 using HotelRoomWPF.Models;
+using HotelRoomWPF.Stores;
+using HotelRoomWPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,21 +18,36 @@ namespace HotelRoomWPF
     public partial class App : Application
     {
         private Hotel _hotel;
+        private readonly NavigationStore _navigationStore;
 
         public App()
         {
             _hotel = new Hotel("White Horse");
+            _navigationStore = new NavigationStore();
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+
+            _navigationStore.CurrentViewModel = CreateReservetionListingViewModel();
+
             MainWindow = new MainWindow()
             {
-                DataContext = new ViewModels.MainViewModel(_hotel) 
+                DataContext = new ViewModels.MainViewModel(_navigationStore) 
             };
 
             MainWindow.Show();
 
             base.OnStartup(e);
+        }
+
+        private MakeReservetionViewModel CreateMakeReservationViewModel()
+        {
+            return new MakeReservetionViewModel(_hotel, _navigationStore, CreateReservetionListingViewModel);
+        }
+
+        private ReservetionListingViewModel CreateReservetionListingViewModel()
+        {
+            return new ReservetionListingViewModel(_navigationStore, CreateMakeReservationViewModel);
         }
     }
 }
