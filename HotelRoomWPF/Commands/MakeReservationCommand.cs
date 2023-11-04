@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using HotelRoomWPF.ViewModels;
 using System.Windows;
 using System.ComponentModel;
+using HotelRoomWPF.Exceptions;
+using HotelRoomWPF.Services;
 
 namespace HotelRoomWPF.Commands
 {
@@ -14,10 +16,14 @@ namespace HotelRoomWPF.Commands
     {
         private Hotel _hotel;
         private MakeReservetionViewModel _makeReservetionViewModel;
+        private NavigationService NavigationService;
 
-        public MakeReservationCommand(MakeReservetionViewModel makeReservetionViewModel, Hotel hotel)
+        public MakeReservationCommand(MakeReservetionViewModel makeReservetionViewModel, 
+            Hotel hotel,
+            NavigationService navigationService)
         {
             _hotel = hotel;
+            NavigationService = navigationService;
             _makeReservetionViewModel = makeReservetionViewModel;
 
             _makeReservetionViewModel.PropertyChanged += OnViewPropertyChanged;
@@ -40,7 +46,17 @@ namespace HotelRoomWPF.Commands
                 _makeReservetionViewModel.StartTime,
                 _makeReservetionViewModel.EndTime);
 
-            _hotel.MakeReservationHotel(reservation);
+            try
+            {
+                _hotel.MakeReservationHotel(reservation);
+
+                NavigationService.Navigate();
+            }
+            catch (ReservationConflictException)
+            {
+                MessageBox.Show("Reservation Conflict");
+            }
+
         }
 
         private void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)

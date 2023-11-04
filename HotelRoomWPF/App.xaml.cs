@@ -1,5 +1,6 @@
 ﻿using HotelRoomWPF.Exceptions;
 using HotelRoomWPF.Models;
+using HotelRoomWPF.Services;
 using HotelRoomWPF.Stores;
 using HotelRoomWPF.ViewModels;
 using System;
@@ -42,12 +43,12 @@ namespace HotelRoomWPF
 
         private MakeReservetionViewModel CreateMakeReservationViewModel()
         {
-            return new MakeReservetionViewModel(_hotel, _navigationStore, CreateReservetionListingViewModel);
+            return new MakeReservetionViewModel(_hotel, new NavigationService( _navigationStore, CreateReservetionListingViewModel));
         }
 
         private ReservetionListingViewModel CreateReservetionListingViewModel()
         {
-            return new ReservetionListingViewModel(_navigationStore, CreateMakeReservationViewModel);
+            return new ReservetionListingViewModel(_hotel, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
         }
     }
 }

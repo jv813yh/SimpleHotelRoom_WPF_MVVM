@@ -14,6 +14,7 @@ namespace HotelRoomWPF.Commands
         public virtual bool CanExecute(object? parameter) => true;
 
         public abstract void Execute(object? parameter);
+        
 
         protected void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }

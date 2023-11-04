@@ -6,16 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HotelRoomWPF.Commands;
-
+using HotelRoomWPF.Services;
 
 namespace HotelRoomWPF.ViewModels
 {
     public class MakeReservetionViewModel: BaseViewModel
     {
-        public MakeReservetionViewModel(Hotel hotel, Stores.NavigationStore navigationStore, Func<ReservetionListingViewModel> createReservetionListingViewModel)
+        public MakeReservetionViewModel(Hotel hotel, 
+            NavigationService navigationService)
         { 
-            SubmitCommand = new MakeReservationCommand(this, hotel);
-            CancelCommand = new NavigateCommand(navigationStore, createReservetionListingViewModel);
+            SubmitCommand = new MakeReservationCommand(this, hotel, navigationService);
+            CancelCommand = new NavigateCommand(navigationService);
 
         } 
 
@@ -71,7 +72,7 @@ namespace HotelRoomWPF.ViewModels
                 }
             }
         }
-        private DateTime _startTime;
+        private DateTime _startTime = DateTime.Now;
         public DateTime StartTime 
         {
             get
@@ -88,7 +89,7 @@ namespace HotelRoomWPF.ViewModels
             }
         }
 
-        private DateTime _endTime;
+        private DateTime _endTime = DateTime.Now;
         public DateTime EndTime
         {
             get

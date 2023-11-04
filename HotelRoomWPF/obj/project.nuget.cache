@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "56c5PQs++i9xBd/Hp9ExBPMkZ4DNkntox7AMMbURCXAVyVeIMqcNTQXJTVFKc8jK4C2EzvJMgGRuj4J0eJYRhg==",
+  "dgSpecHash": "Mahy5mMID3P/lt5HmXEQTkxSbgMTD3F+mlu8G89KhOP56Ur+tV9jETubfPC6vCRlCBPsVinw1glH49t45GsNEg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ke01140\\source\\repos\\SimpleHotelRoom_WPF_MVVM\\HotelRoomWPF\\HotelRoomWPF.csproj",
+  "projectFilePath": "C:\\Users\\ke01140\\source\\repos\\SingletonSeanSeries\\HotelReservationSimpleWpfMVVM\\SimpleHotelRoom_WPF_MVVM\\HotelRoomWPF\\HotelRoomWPF.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
