@@ -12,18 +12,18 @@ using HotelRoomWPF.Services;
 
 namespace HotelRoomWPF.Commands
 {
-    public class MakeReservationCommand : CommandBase
+    public class MakeReservationCommand : AsyncCommandBase
     {
         private Hotel _hotel;
         private MakeReservetionViewModel _makeReservetionViewModel;
-        private NavigationService NavigationService;
+        private NavigationService _navigationService;
 
         public MakeReservationCommand(MakeReservetionViewModel makeReservetionViewModel, 
             Hotel hotel,
             NavigationService navigationService)
         {
             _hotel = hotel;
-            NavigationService = navigationService;
+            _navigationService = navigationService;
             _makeReservetionViewModel = makeReservetionViewModel;
 
             _makeReservetionViewModel.PropertyChanged += OnViewPropertyChanged;
@@ -37,7 +37,7 @@ namespace HotelRoomWPF.Commands
                 !string.IsNullOrEmpty(_makeReservetionViewModel.UserName) && base.CanExecute(parameter);
         }
 
-        public override void Execute(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
 
             Reservation reservation = new Reservation(
@@ -48,15 +48,20 @@ namespace HotelRoomWPF.Commands
 
             try
             {
-                _hotel.MakeReservationHotel(reservation);
+               await _hotel.MakeReservationHotel(reservation);
 
-                NavigationService.Navigate();
+                _navigationService.Navigate();
             }
             catch (ReservationConflictException)
             {
-                MessageBox.Show("Reservation Conflict");
+                MessageBox.Show("This room is already taken", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
+            catch(Exception)
+            {
+                MessageBox.Show("Failed to make reservation", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -67,8 +72,6 @@ namespace HotelRoomWPF.Commands
             {
                 OnCanExecuteChanged();
             }
-            
         }
-
     }
 }

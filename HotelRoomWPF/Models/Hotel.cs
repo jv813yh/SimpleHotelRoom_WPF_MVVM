@@ -13,17 +13,17 @@ namespace HotelRoomWPF.Models
 
         public string Name { get; set; }
 
-        public Hotel(string name)
+        public Hotel(string name, ReservationBook reservationBook)
         {
-            _reservationBook = new ReservationBook();
+            _reservationBook = reservationBook;
             Name = name;
         }
 
-        public IEnumerable<Reservation> GettAllReservation() => _reservationBook.GetAllReservation();
+        public async Task<IEnumerable<Reservation>> GettAllReservation() => await _reservationBook.GetAllReservation();
 
-        public void MakeReservationHotel(Reservation reservation)
+        public async Task MakeReservationHotel(Reservation reservation)
         {
-            _reservationBook.AddReservation(reservation);
+           await _reservationBook.AddReservation(reservation);
         }
     }
 }

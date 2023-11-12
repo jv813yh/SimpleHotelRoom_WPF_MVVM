@@ -17,7 +17,6 @@ namespace HotelRoomWPF.ViewModels
         { 
             SubmitCommand = new MakeReservationCommand(this, hotel, navigationService);
             CancelCommand = new NavigateCommand(navigationService);
-
         } 
 
         public ICommand SubmitCommand { get; }

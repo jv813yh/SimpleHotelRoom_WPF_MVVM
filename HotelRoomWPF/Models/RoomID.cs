@@ -28,6 +28,8 @@ namespace HotelRoomWPF.Models
             return HashCode.Combine(FloorNumber, RoomNumber);
         }
 
+  
+
         /*
         public static bool operator ==(RoomID left, RoomID right)
         {

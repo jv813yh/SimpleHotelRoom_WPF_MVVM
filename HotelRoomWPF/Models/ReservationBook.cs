@@ -1,4 +1,7 @@
 ﻿using HotelRoomWPF.Exceptions;
+using HotelRoomWPF.Services.ReservationConflictValidators;
+using HotelRoomWPF.Services.ReservationCreators;
+using HotelRoomWPF.Services.ReservationProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,37 +14,30 @@ namespace HotelRoomWPF.Models
 {
     public class ReservationBook
     {
-        private readonly List<Reservation> _roomsToReservations;
+        private readonly IReservationCreator _reservationCreator;
+        private readonly IReservationProvider _reservationProvider;
+        private readonly IReservationConfilictValidator _reservationConfilictValidator;
 
-        public ReservationBook()
+        public ReservationBook(IReservationCreator reservationCreator, 
+            IReservationProvider reservationProvider, 
+            IReservationConfilictValidator reservationConfilictValidator)
         {
-            _roomsToReservations = new List<Reservation>();
+            _reservationCreator = reservationCreator;
+            _reservationProvider = reservationProvider;
+            _reservationConfilictValidator = reservationConfilictValidator;
         }
+        public async Task<IEnumerable<Reservation>> GetAllReservation() => await _reservationProvider.GetReservationsAsync();
 
-
-        public IEnumerable<Reservation> GetAllReservation() => _roomsToReservations;
-
-        public void AddReservation(Reservation reservation)
+        public async Task AddReservation(Reservation reservation)
         {
-            try
-            {
-                foreach (Reservation item in _roomsToReservations)
-                {
-                    if (item.Conflicts(reservation))
-                    {
-                        throw new ReservationConflictException(item, reservation);
-                    }
-                }
-                _roomsToReservations.Add(reservation);
+            Reservation conflictingReservation = await _reservationConfilictValidator.GetConflictingReservation(reservation);
 
-                MessageBox.Show("Successfully reserved room", "Information",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (ReservationConflictException ex)
+            if (conflictingReservation != null)
             {
-                MessageBox.Show("This room is already taken", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                throw new ReservationConflictException(conflictingReservation, reservation);
             }
+
+            await _reservationCreator.CreateReservation(reservation);
         }
     }
 }

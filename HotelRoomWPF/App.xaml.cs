@@ -1,8 +1,11 @@
-﻿using HotelRoomWPF.Exceptions;
+﻿using HotelRoomWPF.DbContexts;
+using HotelRoomWPF.Exceptions;
 using HotelRoomWPF.Models;
 using HotelRoomWPF.Services;
+using HotelRoomWPF.Services.ReservationProviders;
 using HotelRoomWPF.Stores;
 using HotelRoomWPF.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +13,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using HotelRoomWPF.Services.ReservationCreators;
+using HotelRoomWPF.Services.ReservationConflictValidators;
+using HotelRoomWPF.Services.ReservationProviders;
 
 namespace HotelRoomWPF
 {
@@ -18,16 +24,32 @@ namespace HotelRoomWPF
     /// </summary>
     public partial class App : Application
     {
-        private Hotel _hotel;
+        private const string _connectionString = "Data Source=reservoom.db";
+
+        private readonly Hotel _hotel;
         private readonly NavigationStore _navigationStore;
+        private readonly ReservoomDbContextFactory _contextFactory;
 
         public App()
         {
-            _hotel = new Hotel("White Horse");
+             _contextFactory = new ReservoomDbContextFactory(_connectionString);
+
+            IReservationProvider reservationProvider = new DatabaseReservationProvider(_contextFactory);
+            IReservationCreator reservationCreator = new DatabaseReservationCreator(_contextFactory);
+            IReservationConfilictValidator reservationConflictValidator = new DatabaseReservationConflictValidator(_contextFactory);
+
+            ReservationBook reservationBook = new ReservationBook(reservationCreator, reservationProvider, reservationConflictValidator);
+
+            _hotel = new Hotel("White Horse", reservationBook);
             _navigationStore = new NavigationStore();
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+
+            using(ReservoomDbContext context = _contextFactory.CreateDbContext())
+            {
+                context.Database.Migrate();
+            }
 
             _navigationStore.CurrentViewModel = CreateReservetionListingViewModel();
 
@@ -48,7 +70,7 @@ namespace HotelRoomWPF
 
         private ReservetionListingViewModel CreateReservetionListingViewModel()
         {
-            return new ReservetionListingViewModel(_hotel, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
+            return ReservetionListingViewModel.LoadReservations(_hotel, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
         }
     }
 }

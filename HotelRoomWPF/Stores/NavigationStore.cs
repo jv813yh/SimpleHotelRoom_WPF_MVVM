@@ -26,6 +26,5 @@ namespace HotelRoomWPF.Stores
         }
 
         public event Action CurrentViewModelChanged;
-
     }
 }
